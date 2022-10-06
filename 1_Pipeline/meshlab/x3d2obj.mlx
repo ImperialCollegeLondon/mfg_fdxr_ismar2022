@@ -1,0 +1,27 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Transform: Rotate">
+  <Param value="0" type="RichEnum" enum_cardinality="4" enum_val1="Y axis" name="rotAxis" description="Rotation on:" tooltip="Choose a method" enum_val2="Z axis" enum_val3="custom axis" enum_val0="X axis"/>
+  <Param value="0" type="RichEnum" enum_cardinality="3" enum_val1="barycenter" name="rotCenter" description="Center of rotation:" tooltip="Choose a method" enum_val2="custom point" enum_val0="origin"/>
+  <Param value="270" type="RichDynamicFloat" name="angle" max="360" description="Rotation Angle" tooltip="Angle of rotation (in &lt;b>degree&lt;/b>). If snapping is enabled this value is rounded according to the snap value" min="-360"/>
+  <Param x="0" z="0" type="RichDirection" name="customAxis" description="Custom axis" y="0" tooltip="This rotation axis is used only if the 'custom axis' option is chosen."/>
+  <Param x="0" z="0" type="RichPosition" name="customCenter" description="Custom center" y="0" tooltip="This rotation center is used only if the 'custom point' option is chosen."/>
+  <Param value="false" type="RichBool" name="snapFlag" description="Snap angle" tooltip="If selected, before starting the filter will remove any unreferenced vertex (for which curvature values are not defined)"/>
+  <Param value="30" type="RichFloat" name="snapAngle" description="Snapping Value" tooltip="This value is used to snap the rotation angle (i.e. if the snapping value is 30, 227 becomes 210)."/>
+  <Param value="true" type="RichBool" name="Freeze" description="Freeze Matrix" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed"/>
+  <Param value="false" type="RichBool" name="allLayers" description="Apply to all visible Layers" tooltip="If selected the filter will be applied to all visible mesh layers"/>
+ </filter>
+ <filter name="Parametrization: Trivial Per-Triangle">
+  <Param value="0" type="RichInt" name="sidedim" description="Quads per line" tooltip="Indicates how many triangles have to be put on each line (every quad contains two triangles)&#xa;Leave 0 for automatic calculation"/>
+  <Param value="1024" type="RichInt" name="textdim" description="Texture Dimension (px)" tooltip="Gives an indication on how big the texture is"/>
+  <Param value="0" type="RichInt" name="border" description="Inter-Triangle border (px)" tooltip="Specifies how many pixels to be left between triangles in parametrization domain"/>
+  <Param value="1" type="RichEnum" enum_cardinality="2" enum_val1="Space-optimizing" name="method" description="Method" tooltip="Choose space optimizing to map smaller faces into smaller triangles in parametrizazion domain" enum_val0="Basic"/>
+ </filter>
+ <filter name="Transfer: Vertex Color to Texture">
+  <Param value="ModelTexture" type="RichString" name="textName" description="Texture name" tooltip="The name of the texture to be created"/>
+  <Param value="1024" type="RichInt" name="textW" description="Texture width (px)" tooltip="The texture width"/>
+  <Param value="1024" type="RichInt" name="textH" description="Texture height (px)" tooltip="The texture height"/>
+  <Param value="false" type="RichBool" name="overwrite" description="Overwrite texture" tooltip="if current mesh has a texture will be overwritten (with provided texture dimension)"/>
+  <Param value="true" type="RichBool" name="pullpush" description="Fill texture" tooltip="if enabled the unmapped texture space is colored using a pull push filling algorithm, if false is set to black"/>
+ </filter>
+</FilterScript>

@@ -1,0 +1,156 @@
+<html>
+    <head>
+		<title>WebXR 3D Model Viewer</title>
+		<meta property="og:url"                content="https://niteshbhatia008.github.io/nb-webxr-viewer/" />
+		<meta property="og:type"               content="article" />
+		<meta property="og:title"              content="WebXR 3D Model Viewer" />
+		<meta property="og:description"        content="WebXR viewer visualize scanned 3D objects in Web or AR without requiring custom app installs." />
+		
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        
+        <style>
+            model-viewer {
+                --ar-button-display: none;
+                background-color: #51576e;
+                overflow-x: hidden;
+                --poster-color: #eee;
+                height: 50%;
+                width: auto;
+            }
+            .btn-primary {
+                background-color: #003B73;
+                border-color:  #003B73;
+                border-radius: 40px;
+            }
+            .hide 
+            {
+                display:none;
+            }
+            
+            #annotation {
+                background-color: #e6e6e6;
+                position: absolute;
+                transform: translate(10px, 10px);
+                border-radius: 3px;
+                padding: 3px;
+                font-size: small;
+                width: 230px;
+                height: 35px;
+                
+            }
+            /* This keeps child nodes hidden while the element loads */
+            :not(:defined) > * {
+                display: none;
+            }
+            
+        </style>
+
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+		
+	
+    </head>
+    <div class="container">
+        
+        <h3><b>WebXR 3D Model Viewer</b></h3>
+		
+        <model-viewer id="model-viewer" 
+        src="assets/models/model.gltf" 
+        ios-src="assets/models/model.usdz" 
+        autoplay 
+        ar camera-controls 
+        ar-modes="scene-viewer quick-look webxr" 
+        ar-scale="auto"
+        exposure="0.5"
+        >
+
+
+        </model-viewer>
+    
+        <br/>
+         <div class="row">
+            
+                <div class="col-5">
+				<h6>Please use the drop-down to select 3D Models: </h6>
+                    
+                </div>
+                <div class="col-7">
+                    <select id="selectBox" class="form-select form-select-nb mb-3" aria-label=".form-select-nb example" onchange="modelChange()">
+						<option value="model" >Model </option>
+						<option value="model" >Model </option>
+                      </select>
+                </div>
+
+          
+          <br />
+        <div class="d-grid gap-2 col-8 mx-auto">
+        <button type="button" class="btn btn-primary btn-nb" id="my-own-custom-button" onclick="activateAR_click()"> View in AR </button>        <h6>Note: Please use Safari on iOS and Chrome on Android for viewing these models in AR.</h6>
+        </div>
+        <br/>    <br/>
+    </div>
+    
+    <script>
+        function modelChange() {
+
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            var modelViewer = document.querySelector("model-viewer")
+            const base = "assets/models/" + selectedValue;
+            modelViewer.src = base + '.gltf';
+            modelViewer.iosSrc = base + '.usdz';
+        }
+
+        function activateAR_click() {
+            var modelViewer = document.getElementById('model-viewer');
+            modelViewer.activateAR();
+        }
+
+        var StatusAnimation = 'on';
+        function animationPlay() {
+            var modelViewer = document.querySelector("model-viewer")
+            console.log(modelViewer.availableAnimations);
+            console.log('duration: ' + modelViewer.duration);
+
+            var animationStatus = document.getElementById("animationStatus");
+            var animationBtn = document.getElementById("animationBtn");
+            if ( StatusAnimation == 'off')
+            {
+                animationStatus.classList.add('glyphicon-off');
+                animationStatus.classList.remove('glyphicon-refresh');
+                StatusAnimation = 'on'
+                
+                animationBtn.classList.add('btn-danger');
+                animationBtn.classList.remove('btn-primary');
+
+                const modelViewer = document.querySelector("model-viewer");
+                modelViewer.animationName = 'Animation';
+                console.log('duration: ' + modelViewer.duration);
+                const animationLength = 1000; // ms
+                modelViewer.play();
+                
+                self.setTimeout(()=>{modelViewer.pause();}, animationLength);
+            }
+            else
+            {
+                animationStatus.classList.remove('glyphicon-off')
+                animationStatus.classList.add('glyphicon-refresh')
+                StatusAnimation = 'off'
+                animationBtn.classList.remove('btn-danger')
+                animationBtn.classList.add('btn-primary')
+
+                const modelViewer = document.querySelector("model-viewer");
+                modelViewer.animationName = 'Animation';
+                modelViewer.pause();
+            }
+
+        }
+    </script>
+</html>
+
