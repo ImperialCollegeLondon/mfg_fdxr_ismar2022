@@ -43,7 +43,9 @@ This code provides an implementation of the research paper:
 If you use this code please cite:
 
 ```
-  Bhatia, N., & Matar, O. K. (2022, October). Learning and Teaching Fluid Dynamics using Augmented and Mixed Reality. In 2022 IEEE International Symposium on Mixed and   Augmented Reality Adjunct (ISMAR-Adjunct) (pp. 865-869). IEEE.
+  Bhatia, N., & Matar, O. K. (2022, October). Learning and Teaching Fluid Dynamics using Augmented 
+  and Mixed Reality. In 2022 IEEE International Symposium on Mixed and Augmented Reality 
+  Adjunct (ISMAR-Adjunct) (pp. 865-869). IEEE.
 
 ```
 
